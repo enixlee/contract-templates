@@ -1,7 +1,28 @@
 {
+  "name": "contract-templates",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "npx hardhat test",
+    "test:grep": "npx hardhat test --grep",
+    "compile": "rm -rf ./abi && npx hardhat export-abi && find ./abi/contracts -name '*.json'|xargs -I file npx abi-types-generator file --provider=ethers_v5"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@openzeppelin/contracts": "^5.0.1",
     "@openzeppelin/contracts-upgradeable": "^5.0.1",
-    "@openzeppelin/hardhat-upgrades": "^3.0.1"
+    "@openzeppelin/hardhat-upgrades": "^3.0.1",
+    "@zero-dao/eno-hardhat-plugin-deploy": "github:0x00DAO/eon-hardhat-deploy#main",
+    "@zero-dao/eon": "github:0x00DAO/Eon#main",
+    "chai": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.2",
+    "hardhat": "^2.19.4",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.3.3"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   }
 }
