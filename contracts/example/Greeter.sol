@@ -44,10 +44,6 @@ contract Greeter is
         _grantRole(SET_GREETING_ROLE, msg.sender);
     }
 
-    function _authorizeUpgrade(
-        address newImplementation
-    ) internal override onlyRole(UPGRADER_ROLE) {}
-
     function pause() public onlyRole(PAUSER_ROLE) {
         _pause();
     }
@@ -109,4 +105,8 @@ contract Greeter is
         emit BuildTokenUri(finalTokenURI);
         return finalTokenURI;
     }
+
+    function _authorizeUpgrade(
+        address newImplementation
+    ) internal override onlyRole(UPGRADER_ROLE) {}
 }
