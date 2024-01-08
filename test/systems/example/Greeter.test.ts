@@ -5,7 +5,7 @@ import { ethers, upgrades } from "hardhat";
 describe("Greeter", function () {
   let contract: Contract;
 
-  const SET_GREETING_ROLE = ethers.utils.solidityKeccak256(
+  const SET_GREETING_ROLE = ethers.solidityPackedKeccak256(
     ["string"],
     ["SET_GREETING_ROLE"]
   );

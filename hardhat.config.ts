@@ -1,11 +1,12 @@
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-toolbox";
-import "dotenv/config";
-
+import "@nomicfoundation/hardhat-verify";
 import "@nomiclabs/hardhat-solhint";
+
 import "@openzeppelin/hardhat-upgrades";
 import "@zero-dao/eno-hardhat-plugin-deploy";
 import "hardhat-abi-exporter";
+import "dotenv/config";
 
 import { HardhatUserConfig, task } from "hardhat/config";
 
@@ -37,7 +38,7 @@ const config: HardhatUserConfig = {
     timeout: 10 * 60 * 1000,
   },
   abiExporter: {
-    except: ["/contracts/libs"],
+    except: ["contracts/libs"],
   },
 };
 export default config;
