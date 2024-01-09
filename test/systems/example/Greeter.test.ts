@@ -75,11 +75,11 @@ describe("Greeter", function () {
     // console.log("tokenUri", tokenUri);
   });
 
-  // it("Greeter:Gen Hash", async () => {
-  //   const base = "what's osairo???";
+  it("Greeter:Gen Hash", async () => {
+    const base = "what's osairo???";
 
-  //   const hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(base));
+    const hash = ethers.keccak256(ethers.toUtf8Bytes(base));
 
-  //   console.log("Hash:", hash);
-  // });
+    console.log("Hash:", hash);
+  });
 });
