@@ -1,11 +1,11 @@
-import { DeployProxyOptions } from '@openzeppelin/hardhat-upgrades/dist/utils';
-import { Contract, ethers } from 'ethers';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { EonDeployData } from './eon-deploy-data.class';
+import { DeployProxyOptions } from "@openzeppelin/hardhat-upgrades/dist/utils";
+import { Contract, ethers } from "ethers";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { EonDeployData } from "./eon-deploy-data.class";
 
 export class EonDeploy {
   private getHre() {
-    return require('hardhat');
+    return require("hardhat");
   }
   private async _deployDataWith(
     hre: HardhatRuntimeEnvironment,
@@ -111,30 +111,32 @@ export class EonDeploy {
     hre: HardhatRuntimeEnvironment
   ): Promise<Contract> {
     // We get the contract to deploy
-    console.log('[deploy contract]:deploy [%s] start', DeployContractName);
-    const deployer = deployContract.signer;
-    console.log(
-      '[deploy contract]:deployer address',
-      await deployer.getAddress()
-    );
-    const deployerBalance = await deployer.getBalance();
-    console.log(
-      '[deploy contract]:deployer balance before',
-      ethers.utils.formatEther(deployerBalance)
-    );
-    await deployContract.deployed();
+    console.log("[deploy contract]:deploy [%s] start", DeployContractName);
+    const deployer = deployContract.runner as any;
+    const deployerAddress = await deployer.getAddress();
+    console.log("[deploy contract]:deployer address", deployerAddress);
+    const provider = deployer.provider;
 
-    const deployerBalanceAfter = await deployer.getBalance();
+    // const deployerBalance = await provider.getBalance();
+    // console.log(
+    //   "[deploy contract]:deployer balance before",
+    //   ethers.formatEther(deployerBalance)
+    // );
+    const tx = await deployContract.waitForDeployment();
+    console.log("tx", tx);
+
+    // const deployerBalanceAfter = await deployer.getBalance();
+    // console.log(
+    //   "[deploy contract]:deployer balance after",
+    //   ethers.formatEther(deployerBalanceAfter)
+    // );
+    // console.log(
+    //   "[deploy contract]:deploy gas fee",
+    //   ethers.formatEther(deployerBalance.sub(deployerBalanceAfter))
+    // );
+    console.log("after:", deployContract);
     console.log(
-      '[deploy contract]:deployer balance after',
-      ethers.utils.formatEther(deployerBalanceAfter)
-    );
-    console.log(
-      '[deploy contract]:deploy gas fee',
-      ethers.utils.formatEther(deployerBalance.sub(deployerBalanceAfter))
-    );
-    console.log(
-      '[deploy contract]:deploy complete! contract: [%s] deployed to: %s',
+      "[deploy contract]:deploy complete! contract: [%s] deployed to: %s",
       DeployContractName,
       deployContract.address
     );
@@ -192,7 +194,7 @@ export class EonDeploy {
     forceImport?: boolean
   ): Promise<Contract> {
     const hre = this.getHre();
-    console.log('[deploy contract]:deploy [%s] upgrade ...', contractName);
+    console.log("[deploy contract]:deploy [%s] upgrade ...", contractName);
     const DeployContractName = contractName;
     const DeployContract = await hre.ethers.getContractFactory(contractName);
     let deployContract;
@@ -222,11 +224,11 @@ export class EonDeploy {
     upgradeDefenderMultiSigAddress: string
   ): Promise<void> {
     const hre = this.getHre();
-    console.log('[deploy contract]:deploy [%s] upgrade ...', contractName);
+    console.log("[deploy contract]:deploy [%s] upgrade ...", contractName);
     const Contract = await hre.ethers.getContractFactory(contractName);
-    console.log('Preparing proposal...');
+    console.log("Preparing proposal...");
     console.log(
-      'Upgrade proposal with multisig at:',
+      "Upgrade proposal with multisig at:",
       upgradeDefenderMultiSigAddress
     );
     const proposal = await hre.defender.proposeUpgrade(
@@ -236,6 +238,6 @@ export class EonDeploy {
         multisig: upgradeDefenderMultiSigAddress,
       }
     );
-    console.log('Upgrade proposal created at:', proposal.url);
+    console.log("Upgrade proposal created at:", proposal.url);
   }
 }
