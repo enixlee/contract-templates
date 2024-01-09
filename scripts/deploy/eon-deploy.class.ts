@@ -32,7 +32,7 @@ export class EonDeploy {
     await eonDeployerData.saveContractDeployDataWithHre(
       hre,
       contractName,
-      contract.address,
+      contract.target as string,
       contractNameAlias
     );
     return contract;
@@ -117,28 +117,26 @@ export class EonDeploy {
     console.log("[deploy contract]:deployer address", deployerAddress);
     const provider = deployer.provider;
 
-    // const deployerBalance = await provider.getBalance();
-    // console.log(
-    //   "[deploy contract]:deployer balance before",
-    //   ethers.formatEther(deployerBalance)
-    // );
-    const tx = await deployContract.waitForDeployment();
-    console.log("tx", tx);
+    const deployerBalance = await provider.getBalance(deployerAddress);
+    console.log(
+      "[deploy contract]:deployer balance before",
+      ethers.formatEther(deployerBalance)
+    );
+    await deployContract.waitForDeployment();
 
-    // const deployerBalanceAfter = await deployer.getBalance();
-    // console.log(
-    //   "[deploy contract]:deployer balance after",
-    //   ethers.formatEther(deployerBalanceAfter)
-    // );
-    // console.log(
-    //   "[deploy contract]:deploy gas fee",
-    //   ethers.formatEther(deployerBalance.sub(deployerBalanceAfter))
-    // );
-    console.log("after:", deployContract);
+    const deployerBalanceAfter = await provider.getBalance(deployerAddress);
+    console.log(
+      "[deploy contract]:deployer balance after",
+      ethers.formatEther(deployerBalanceAfter)
+    );
+    console.log(
+      "[deploy contract]:deploy gas fee",
+      ethers.formatEther(deployerBalance.sub(deployerBalanceAfter))
+    );
     console.log(
       "[deploy contract]:deploy complete! contract: [%s] deployed to: %s",
       DeployContractName,
-      deployContract.address
+      deployContract.target
     );
     return deployContract;
   }

@@ -80,6 +80,26 @@
       "address": "0xb291190032793b94283361562D35D5115Dd1abdb",
       "txHash": "0xf826c524e201706d1c981783dc066adffa48f246fb77e5e69a2a58f5cf1d145e",
       "kind": "uups"
+    },
+    {
+      "address": "0xc36402371977735238321acD6C9138B4cE0ECfBC",
+      "txHash": "0xed772b9ae47ddba9d9e21a9cdadaacd173d3357bfb4cb6ef7d64ef1b609ad666",
+      "kind": "uups"
+    },
+    {
+      "address": "0x9973965E63155882cDCc8F8E81Ec07a108CEAbf6",
+      "txHash": "0xc69fb2807663ecc60dd1d685bc6bc340762632be2288078e9232afe8df6ee6af",
+      "kind": "uups"
+    },
+    {
+      "address": "0x74dc80cb136F71E12d8FB0e8cc4F83b4CA0d572D",
+      "txHash": "0x9d153a4e8ae3bb6e18dd049e39a7b2184238d7e73d64c804edeb73d018e749c9",
+      "kind": "uups"
+    },
+    {
+      "address": "0x947DF12C0723C23CC95DBcE333b2826002ccD6DE",
+      "txHash": "0xc56dfb4becf3eecfd7c5863a00fdd907b44d76c73c95b5dd1c15e7e7f23d4025",
+      "kind": "uups"
     }
   ],
   "impls": {

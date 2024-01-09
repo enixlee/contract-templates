@@ -5,7 +5,7 @@ async function main() {
   const contract = await deployer.deployUpgradeWithData("Greeter", [
     "Hello, world!",
   ]);
-  console.log("deployed to:", contract.address);
+  console.log("deployed to:", contract.target);
 }
 
 main()
