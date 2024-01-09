@@ -31,24 +31,24 @@ describe("Greeter", function () {
     }
   });
 
-  // it("Should return the new greeting once it's changed", async function () {
-  //   await contract.setGreeting("Hello, world!");
-  //   expect(await contract.greet()).to.equal("Hello, world!");
+  it("Should return the new greeting once it's changed", async function () {
+    await contract.setGreeting("Hello, world!");
+    expect(await contract.greet()).to.equal("Hello, world!");
 
-  //   const [owner] = await ethers.getSigners();
-  //   await expect(contract.connect(owner).setGreeting("Hola, mundo!"))
-  //     .to.emit(contract, "GreetingChanged")
-  //     .withArgs(owner.address, "Hola, mundo!");
+    const [owner] = await ethers.getSigners();
+    await expect(contract.connect(owner).setGreeting("Hola, mundo!"))
+      .to.emit(contract, "GreetingChanged")
+      .withArgs(owner.address, "Hola, mundo!");
 
-  //   expect(await contract.greet()).to.equal("Hola, mundo!");
+    expect(await contract.greet()).to.equal("Hola, mundo!");
 
-  //   const setGreetingTx = await contract.setGreeting("Hello, world!");
+    const setGreetingTx = await contract.setGreeting("Hello, world!");
 
-  //   // wait until the transaction is mined
-  //   await setGreetingTx.wait();
+    // wait until the transaction is mined
+    await setGreetingTx.wait();
 
-  //   expect(await contract.greet()).to.equal("Hello, world!");
-  // });
+    expect(await contract.greet()).to.equal("Hello, world!");
+  });
 
   it("Should pause contract", async function () {
     await contract.pause();
