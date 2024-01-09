@@ -123,15 +123,15 @@ export class EonDeploy {
       ethers.formatEther(deployerBalance)
     );
     await deployContract.waitForDeployment();
-
     const deployerBalanceAfter = await provider.getBalance(deployerAddress);
+
     console.log(
       "[deploy contract]:deployer balance after",
       ethers.formatEther(deployerBalanceAfter)
     );
     console.log(
       "[deploy contract]:deploy gas fee",
-      ethers.formatEther(deployerBalance.sub(deployerBalanceAfter))
+      ethers.formatEther(deployerBalance - deployerBalanceAfter)
     );
     console.log(
       "[deploy contract]:deploy complete! contract: [%s] deployed to: %s",

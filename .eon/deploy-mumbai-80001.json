@@ -1,6 +1,7 @@
 {
   "Greeter": {
-    "contractName": "Greeter"
+    "contractName": "Greeter",
+    "address": "0x3B2d84dEfd5e17D88DB80E397745d03FDD497eD1"
   },
   "manifestVersion": "0.0.1"
 }
