@@ -8,6 +8,8 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
+// import "hardhat/console.sol";
+
 contract Greeter is
     Initializable,
     PausableUpgradeable,
@@ -103,6 +105,7 @@ contract Greeter is
         );
 
         emit BuildTokenUri(finalTokenURI);
+        // console.log("get token uri: %s", finalTokenURI);
         return finalTokenURI;
     }
 
