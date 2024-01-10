@@ -2,6 +2,42 @@ import { expect } from "chai";
 import { Contract } from "ethers";
 import { ethers, upgrades } from "hardhat";
 
+function base64Encode(str: string) {
+  return ethers.encodeBase64(ethers.toUtf8Bytes(str));
+}
+
+function unicodeString(...args: any) {
+  return args.join("");
+}
+
+function tokenURI() {
+  const fillColor = "#135240";
+
+  // Create SVG rectangle with color
+  const imgSVG = base64Encode(
+    "<svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='500' height='500' preserveAspectRatio='none' viewBox='0 0 500 500'>" +
+      "<rect width='100%' height='100%' fill='" +
+      fillColor +
+      "' />" +
+      "<text x='50%' y='50%' font-size='128' dominant-baseline='middle' text-anchor='middle'>" +
+      unicodeString("😀") +
+      "</text>" +
+      "</svg>"
+  );
+
+  const json = base64Encode(
+    '{"name": "ETH Watching SVG",' +
+      '"description": "An Automated ETH tracking SVG",' +
+      '"image": "data:image/svg+xml;base64,' +
+      imgSVG +
+      '"}'
+  );
+
+  const finalTokenURI = unicodeString("data:application/json;base64,", json);
+
+  return finalTokenURI;
+}
+
 describe("Greeter", function () {
   let contract: Contract;
 
@@ -59,16 +95,11 @@ describe("Greeter", function () {
   });
 
   it("Greeter:tokenURI", async () => {
-    // const tx = await contract.tokenURI();
-    // const receipt = await tx.wait();
-    // console.log(receipt);
-    // const event = receipt.events[0];
-    // const [tokenUri] = ethers.utils.defaultAbiCoder.decode(
-    //   ["string"],
-    //   event.data
-    // );
-    expect(await contract.tokenURI()).to.emit(contract, "BuildTokenUri");
-    // console.log("tokenUri", tokenUri);
+    const tokenUri = tokenURI();
+
+    await expect(contract.tokenURI())
+      .to.be.emit(contract, "BuildTokenUri")
+      .withArgs(tokenUri);
   });
 
   it("Greeter:Gen Hash", async () => {

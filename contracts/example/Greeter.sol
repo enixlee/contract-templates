@@ -8,7 +8,7 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 contract Greeter is
     Initializable,
@@ -75,7 +75,7 @@ contract Greeter is
         // Create SVG rectangle with color
         string memory imgSVG = string(
             abi.encodePacked(
-                "<svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='500' height='500' preserveAspectRatio='none' viewBox='0 0 500 500'> <rect width='100%' height='100%' fill='",
+                "<svg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='500' height='500' preserveAspectRatio='none' viewBox='0 0 500 500'><rect width='100%' height='100%' fill='",
                 fillColor,
                 "' />",
                 "<text x='50%' y='50%' font-size='128' dominant-baseline='middle' text-anchor='middle'>",
