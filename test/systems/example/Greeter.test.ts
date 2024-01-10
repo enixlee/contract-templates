@@ -23,12 +23,12 @@ describe("Greeter", function () {
 
     expect(await contract.greet()).to.equal("it's ok!");
 
-    const revertedWith = `VM Exception while processing transaction: reverted with custom error 'AccessControlUnauthorizedAccount("${signer2.address}", "${SET_GREETING_ROLE}")'`;
-    try {
-      await contract.connect(signer2).setGreeting("it's ok!");
-    } catch (e: any) {
-      expect(e.message).to.be.equal(revertedWith);
-    }
+    await expect(contract.connect(signer2).setGreeting("it's ok!"))
+      .to.be.revertedWithCustomError(
+        contract,
+        "AccessControlUnauthorizedAccount"
+      )
+      .withArgs(signer2.address, SET_GREETING_ROLE);
   });
 
   it("Should return the new greeting once it's changed", async function () {
@@ -53,13 +53,9 @@ describe("Greeter", function () {
   it("Should pause contract", async function () {
     await contract.pause();
 
-    try {
-      await contract.setGreeting("Hola, mundo!");
-    } catch (e: any) {
-      expect(e.message).to.be.equal(
-        `VM Exception while processing transaction: reverted with custom error 'EnforcedPause()'`
-      );
-    }
+    await expect(
+      contract.setGreeting("Hola, mundo!")
+    ).to.be.revertedWithCustomError(contract, "EnforcedPause");
   });
 
   it("Greeter:tokenURI", async () => {
